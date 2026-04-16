@@ -1,5 +1,5 @@
 import express from "express";
-import fetch from "node-fetch"; // если Node <18
+
 import { Buffer } from "buffer";
 
 const app = express();
