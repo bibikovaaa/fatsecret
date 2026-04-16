@@ -12,6 +12,12 @@ if (!CLIENT_ID || !CLIENT_SECRET) {
   throw new Error('Нужно передать переменные окружения');
 }
 
+// === GET IP ===
+async function getIp() {
+  const response = await fetch("https://api.ipify.org?format=json");
+  return response.json();
+}
+
 // === FATSECRET TOKEN ===
 async function getFatSecretAccessToken() {
   const credentials = Buffer
@@ -71,6 +77,17 @@ app.get("/search-food", async (req, res) => {
   } catch (err) {
     console.error(err);
     res.status(500).json({ error: "Internal server error" });
+  }
+});
+
+// /get-ip
+app.get("/get-ip", async (req, res) => {
+  try {
+    const ipData = await getIp();
+    res.json(ipData);
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "Failed to fetch IP" });
   }
 });
 
