@@ -6,6 +6,10 @@ const app = express();
 const PORT = 3000;
 
 // === CONFIG ===
+// npm i dotenv
+// import dotenv from "dotenv";
+// dotenv.config();
+
 const CLIENT_ID = process.env.CLIENT_ID;
 const CLIENT_SECRET = process.env.CLIENT_SECRET;
 if (!CLIENT_ID || !CLIENT_SECRET) {
@@ -64,9 +68,10 @@ async function searchFood(query) {
 }
 
 // === EXPRESS ENDPOINT ===
-app.get("/search-food", async (req, res) => {
+app.get("/search", async (req, res) => {
+  // https://fatsecret-tdor.onrender.com/search-food?food=banana
   try {
-    const food = req.query.food;
+    const food = req.query.food; // banana
 
     if (!food) {
       return res.status(400).json({ error: "Query param 'food' is required" });
@@ -80,8 +85,7 @@ app.get("/search-food", async (req, res) => {
   }
 });
 
-// /get-ip
-app.get("/get-ip", async (req, res) => {
+app.get("/ip", async (req, res) => {
   try {
     const ipData = await getIp();
     res.json(ipData);

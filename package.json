@@ -1,6 +1,9 @@
 {
     "name": "fatsecret",
     "version": "0.0.0",
+    "scripts": {
+        "start": "node main.js"
+    },
     "dependencies": {
         "express": "^5.2.1"
     }
