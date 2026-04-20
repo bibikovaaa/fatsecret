@@ -64,7 +64,25 @@ async function searchFood(query) {
     },
   });
 
-  return response.json();
+  /**
+   * @type { SearchData }
+   */
+  const data = response.json();
+  // "Per 100g - Calories: 52kcal | Fat: 0.17g | Carbs: 13.81g | Protein: 0.26g"
+  const params = data.foods.food[0]?.food_description.match(/Per (?<count>\d+)(g) - Calories: (?<calories>\d+)kcal \| Fat: (?<fat>\d+)g \| Carbs: (?<carbs>\d+)g \| Protein: (?<protein>\d+)g/).groups
+
+  if (!params) {
+    return null
+  }
+
+  const count = +params.count
+
+  return {
+    calories: +params.calories / count,
+    fat: +params.fat / count,
+    carbs: +params.carbs / count,
+    protein: +params.protein / count,
+  }
 }
 
 // === EXPRESS ENDPOINT ===
