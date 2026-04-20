@@ -67,12 +67,12 @@ async function searchFood(query) {
   /**
    * @type { SearchData }
    */
-  const data = response.json();
+  const data = await response.json();
 
   console.log(data);
-  
+
   // "Per 100g - Calories: 52kcal | Fat: 0.17g | Carbs: 13.81g | Protein: 0.26g"
-  const params = data.foods?.food[0]?.food_description.match(/Per (?<count>\d+)(g) - Calories: (?<calories>\d+)kcal \| Fat: (?<fat>\d+)g \| Carbs: (?<carbs>\d+)g \| Protein: (?<protein>\d+)g/).groups
+  const params = data.foods.food[0]?.food_description.match(/Per (?<count>\d+)(g) - Calories: (?<calories>\d+)kcal \| Fat: (?<fat>\d+)g \| Carbs: (?<carbs>\d+)g \| Protein: (?<protein>\d+)g/).groups
 
   if (!params) {
     return null
